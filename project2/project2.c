@@ -119,16 +119,11 @@ int genGen() {
 
 // Main functions
 void Arrive(int * id, int * gender) {
-
-<<<<<<< HEAD
 	for (int i = 0; i < 3; i++) {
 		if (bathroom[i] == NULL) {
 			bathroom[i] == *p;
 		}
 	}
-=======
-	
->>>>>>> parent of dd88e48... added sleep that hopefully works to usefacilities
 
 }
 
