@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 
 void initLine();
 int genGen();
@@ -52,9 +53,10 @@ int genGen() {
 }
 
 // Main functions
-void Arrive(int * id, int * gender) {
+void Arrive(Person * p) {
 
-	
+	sleep(p.timeIn);
+	return;
 
 }
 
