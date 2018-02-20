@@ -55,12 +55,13 @@ int genGen() {
 // Main functions
 void Arrive(Person * p) {
 
-	sleep(p.timeIn);
-	return;
-
 }
 
-void UseFacilities(int * id, int * gender, int * time) {
+// sleeps for time seconds
+void UseFacilities(Person * p) {
+
+	sleep(p.timeIn);
+	return;
 
 }
 
