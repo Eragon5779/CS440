@@ -16,45 +16,45 @@ struct Person {
   int timeIn;
 };
 
-struct Person line[20];     // Where the ID is the place in line
+struct Person line[20];		// Where the ID is the place in line
 struct Person bathroom[3];
 
 int main() {
-    srand(time(NULL));
+	srand(time(NULL));
 
-    initLine();
+	initLine();
 
-    printf("%d\n", line[11].gender);
+	printf("%d\n", line[11].gender);
 
-    return 0;
+	return 0;
 }
 
 //Initialization Functions
 void initLine() {
-    for (int i = 0; i < 20; i++) {
-        line[i].id = i;
-        line[i].gender = genGen();     //Weighted generation function, will write it later
-        line[i].timeIn = rand() % (7 + 1 - 3) + 3;
-    }
+	for (int i = 0; i < 20; i++) {
+		line[i].id = i;
+		line[i].gender = genGen();	   //Weighted generation function, will write it later
+		line[i].timeIn = rand() % (7 + 1 - 3) + 3;
+	}
 }
 
 int genGen() {
 
-    int gender = rand() % (100+1);
+	int gender = rand() % (100+1);
 
-    if (gender <= 60) {
-        return 0;
-    }
-    else {
-        return 1;
-    }
+	if (gender <= 60) {
+		return 0;
+	}
+	else {
+		return 1;
+	}
 
 }
 
 // Main functions
 void Arrive(int * id, int * gender) {
 
-    
+	
 
 }
 
