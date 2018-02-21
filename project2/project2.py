@@ -118,7 +118,7 @@ if case.lower() == 'a':
 	# first 5 added
 	for f in range(0,5):
 		line.append(Person(f))
-		print("Time: %d; Person %d (%s) arrives" % (t, temp.uid, ("M" if line[f].gender else "F")))
+		print("Time: %d; Person %d (%s) arrives" % (t, f, ("M" if line[f].gender else "F")))
 		c += 1
 
 	# central while loop, until count hits 20 and line empties
