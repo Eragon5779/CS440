@@ -39,10 +39,14 @@ def person_remove(d):
 		print(line)
 		print("")
 
-# leave/check; each loop, both are called
+# depart, usefacilities, and arrive
 
-# leave removes those who are done
-def bLeave():
+# removes specified bathroom user
+def Depart(f):
+	bathroom.remove(f)
+
+# finds those who are done and removes
+def UseFacilities():
 	# if it's empty
 	if not bathroom:
 		return
@@ -51,10 +55,10 @@ def bLeave():
 		# check if current time is past/equal to their leave time
 		if f.leave_time - t <= 0:
 			print(str(f.uid) + " leaves the bathroom.")
-			bathroom.remove(f)
+			Depart(f)
 
-# check finds compatible people in line
-def bCheck():
+# finds compatible people in line and puts them in bathroom
+def Arrive():
 	# find last three items on list, or less if it's too small
 
 	# state A: empty
@@ -131,10 +135,10 @@ if case.lower() == 'a':
 		# sleep for readability
 		sleep(0.1)
 		# remove from bathroom
-		bLeave()
+		UseFacilities()
 		# add to bathroom
 		if len(bathroom) < 3 and line:
-			bCheck()
+			Arrive()
 		# increment time
 		t += 1
 
@@ -159,10 +163,10 @@ elif case.lower() == 'b':
 		# sleep for readability
 		sleep(0.1)
 		# remove from bathroom
-		bLeave()
+		UseFacilities()
 		# add to bathroom
 		if len(bathroom) < 3 and line:
-			bCheck()
+			Arrive()
 		# increment time
 		t += 1
 
@@ -177,10 +181,10 @@ elif case.lower() == 'c':
 		# sleep for readability
 		sleep(0.1)
 		# remove from bathroom
-		bLeave()
+		UseFacilities()
 		# add to bathroom
 		if len(bathroom) < 3:
-			bCheck()
+			Arrive()
 		# increment time
 		t += 1
 
