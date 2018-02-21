@@ -34,8 +34,10 @@ def person_remove(d):
 		p.leave_time = t + p.in_time
 		return(p)
 	except:
-		print("this shouldn't happen")
-		return(Person(20))
+		print("\n Unexpected happenings")
+		print(d.uid)
+		print(line)
+		print("")
 
 # leave/check; each loop, both are called
 
@@ -62,11 +64,12 @@ def bCheck():
 	# state A: empty
 	if len(bathroom) == 0:
 		# initalize first person
+		initial_check.remove(line[-1])
 		bathroom.append(person_pop())
 		print("Person " + str(bathroom[0].uid) + " enters the bathroom for " + str(bathroom[0].in_time))
 
 		# check the next 2 for compatible people
-		for f in initial_check[:2]:
+		for f in initial_check:
 			# if gender matches
 			if f.gender == bathroom[0].gender:
 				# add them to bathroom
