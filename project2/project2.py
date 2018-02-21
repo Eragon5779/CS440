@@ -57,6 +57,7 @@ def UseFacilities():
 		# check if current time is past/equal to their leave time
 		if f.leave_time - t <= 0:
 			# print(str(f.uid) + " leaves the bathroom.")
+			global d
 			d += 1
 			print("Time: %d; Person %d (%s) exits (departure = %d)" % (t, f.uid, ("M" if f.gender else "F"), d))
 			Depart(f)
