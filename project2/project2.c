@@ -90,6 +90,42 @@ int main() {
 			}
 		}
 
+		//Two empty spots
+		else if (totalEmpty == 2) {
+			// Get current gender in bathroom
+			int currentGender;
+			for (int i = 0; i < 3; i++) {
+				if (bathroom[i] != NULL) {
+					currentGender = bathroom[i].gender;
+					i = 3;
+					break;
+				}
+			}
+			// 1 person already in
+			int arrived = 1;
+			// Always a max of 3
+			int max = 3;
+			for (int i = 0; i < 20; i++) {
+				// If person hasn't gone yet
+				if (line[i].left != 0) {
+					// And is same gender
+					if (line[i].gender == currentGender) {
+						// Check max and it is the second entering
+						max = (line[i+1] == currentGender && arrived == 1) ? 3: 2;
+						// If not in restroom
+						if (line[i].timeOut != 0 && arrived < max) {
+							Arrive(line[i]);
+							arrived += 1;
+						}
+						else if (arrived == max) {
+							i = 20;
+							break;
+						}
+					}
+				}
+			}
+		}
+
 	}
 
 	return 0;
@@ -106,9 +142,9 @@ void allAtOnce() {
 
 int genGen() {
 
-	int gender = rand() % (100+1);
+	int gender = rand() % (10+1);
 
-	if (gender <= 60) {
+	if (gender <= 6) {
 		return 0;
 	}
 	else {
@@ -122,6 +158,8 @@ void Arrive(int * id, int * gender) {
 	for (int i = 0; i < 3; i++) {
 		if (bathroom[i] == NULL) {
 			bathroom[i] == *p;
+			i = 3;
+			break;
 		}
 	}
 
