@@ -85,8 +85,10 @@ def Arrive():
 	elif len(bathroom) == 1:
 		# for each in line
 		for f in line:
-			# if it's 2 big, return
-			if len(bathroom) == 2:
+			# if it's 2 big, check if next is addable to transition to State D
+			if len(bathroom) == 2 and line[-1].gender == bathroom[0].gender:
+				bathroom.append(person_pop())
+			elif len(bathroom) == 3:
 				return
 			# else, find a compatible person and add
 			elif f.gender == bathroom[0].gender:
@@ -95,7 +97,10 @@ def Arrive():
 
 	# state C: 2 people in
 	elif len(bathroom) == 2:
-		return
+		if line[-1].gender == bathroom[0].gender:
+			bathroom.append(person_pop())
+		else:
+			return
 
 	# state D: 3 people in
 	elif len(bathroom) == 3:
