@@ -27,7 +27,7 @@ def person_pop():
 	p.leave_time = t + p.in_time
 	return(p)
 def person_remove(d):
-	# try catch in case of empty line
+	# try catch in case of empty line, should never occur
 	try:
 		i = line.index(d)
 		p = line.pop(i)
@@ -56,16 +56,17 @@ def bLeave():
 # check finds compatible people in line
 def bCheck():
 	# find last three items on list, or less if it's too small
-	try:
-		initial_check = line[-3:]
-	except:
-		initial_check = line
 
 	# state A: empty
 	if len(bathroom) == 0:
 		# initalize first person
-		initial_check.remove(line[-1])
 		bathroom.append(person_pop())
+		# get other 2 people to check
+		try:
+			initial_check = line[-2:]
+		except:
+			initial_check = line
+
 		print("Person " + str(bathroom[0].uid) + " enters the bathroom for " + str(bathroom[0].in_time))
 
 		# check the next 2 for compatible people
@@ -96,15 +97,21 @@ def bCheck():
 	elif len(bathroom) == 3:
 		return
 
+# 3 required cases
 case = input("Input case (a,b,c): ")
 
+# 5 at a time
 if case.lower() == 'a':
+	# count of total people
 	c = 0
+	# first 5 added
 	for f in range(0,5):
 		line.append(Person(f))
 		c += 1
 
+	# central while loop, until count hits 20 and line empties
 	while c < 20 or line:
+		# adds 5 more at times
 		if t == 10:
 			print("\n 5 new arrivals \n")
 			for f in range(0,5):
@@ -121,31 +128,45 @@ if case.lower() == 'a':
 				line.append(Person(f + 15))
 				c += 1
 
+		# sleep for readability
 		sleep(0.1)
+		# remove from bathroom
 		bLeave()
+		# add to bathroom
 		if len(bathroom) < 3 and line:
 			bCheck()
+		# increment time
 		t += 1
 
+# 10 at a time
 elif case.lower() == 'b':
+	# count of total people
 	c = 0
+	# first 10 added
 	for f in range(0,10):
 		line.append(Person(f))
 		c += 1
 
+	# central while loop, until count hits 20 and line empties
 	while c < 20 or line:
+		# adds 10 more at times
 		if t == 10:
 			print("\n 10 new arrivals \n")
 			for f in range(0,10):
 				line.append(Person(f))
 				c += 1
 
+		# sleep for readability
 		sleep(0.1)
+		# remove from bathroom
 		bLeave()
+		# add to bathroom
 		if len(bathroom) < 3 and line:
 			bCheck()
+		# increment time
 		t += 1
 
+# all at once
 elif case.lower() == 'c':
 	# line generation
 	for f in range(0,20):
@@ -153,14 +174,16 @@ elif case.lower() == 'c':
 
 	# main while loop
 	while line:
-		# sleep for readable output
+		# sleep for readability
 		sleep(0.1)
-		# leave/check
+		# remove from bathroom
 		bLeave()
+		# add to bathroom
 		if len(bathroom) < 3:
 			bCheck()
-		# time increment
+		# increment time
 		t += 1
 
+# improper input
 else:
 	print("invalid input")
