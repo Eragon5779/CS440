@@ -56,8 +56,11 @@ def UseFacilities():
 	for f in bathroom:
 		# check if current time is past/equal to their leave time
 		if f.leave_time - t <= 0:
-			print(str(f.uid) + " leaves the bathroom.")
+			# print(str(f.uid) + " leaves the bathroom.")
+			d += 1
+			print("Time: %d; Person %d (%s) exits (departure = %d)" % (t, f.uid, ("M" if f.gender else "F"), d))
 			Depart(f)
+			
 
 # finds compatible people in line and puts them in bathroom
 def Arrive():
@@ -73,14 +76,16 @@ def Arrive():
 		except:
 			initial_check = line
 
-		print("Person " + str(bathroom[0].uid) + " enters the bathroom for " + str(bathroom[0].in_time))
+		#print("Person " + str(bathroom[0].uid) + " enters the bathroom for " + str(bathroom[0].in_time))
+		print("Time: %d; Person %d (%s) enters the bathroom for %d minutes" % (t, bathroom[0].uid, ("M" if bathroom[0].gender else "F"), bathroom[0].in_time))
 
 		# check the next 2 for compatible people
 		for f in initial_check:
 			# if gender matches
 			if f.gender == bathroom[0].gender:
 				# add them to bathroom
-				print("Person " + str(f.uid) + " enters the bathroom for " + str(f.in_time))
+				# print("Person " + str(f.uid) + " enters the bathroom for " + str(f.in_time))
+				print("Time: %d; Person %d (%s) enters the bathroom for %d minutes" % (t, f.uid, ("M" if f.gender else "F"), f.in_time))
 				bathroom.append(person_remove(f))
 
 	# state B: 1 person in
@@ -94,7 +99,8 @@ def Arrive():
 				return
 			# else, find a compatible person and add
 			elif f.gender == bathroom[0].gender:
-				print("Person " + str(f.uid) + " enters the bathroom for " + str(f.in_time))
+				# print("Person " + str(f.uid) + " enters the bathroom for " + str(f.in_time))
+				print("Time: %d; Person %d (%s) enters the bathroom for %d minutes" % (t, f.uid, ("M" if f.gender else "F"), f.in_time))
 				bathroom.append(person_remove(f))
 
 	# state C: 2 people in
