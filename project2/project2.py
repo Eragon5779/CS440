@@ -3,6 +3,8 @@ from time import sleep
 
 # main time var
 t = 0
+# main depart var
+d = 0
 
 class Person:
 	def __init__(self,uid):
@@ -116,6 +118,7 @@ if case.lower() == 'a':
 	# first 5 added
 	for f in range(0,5):
 		line.append(Person(f))
+		print("Time: %d; Person %d (%s) arrives" % (t, f, ("M" if line[f].gender else "F")))
 		c += 1
 
 	# central while loop, until count hits 20 and line empties
@@ -124,17 +127,23 @@ if case.lower() == 'a':
 		if t == 10:
 			print("\n 5 new arrivals \n")
 			for f in range(0,5):
-				line.append(Person(f + 5))
+				temp = Person(f + 5)
+				line.append(temp)
+				print("Time: %d; Person %d (%s) arrives" % (t, f + 5, ("M" if temp.gender else "F")))
 				c += 1
 		elif t == 20:	
 			print("\n 5 new arrivals \n")
 			for f in range(0,5):
-				line.append(Person(f + 10))
+				temp = Person(f + 10)
+				line.append(temp)
+				print("Time: %d; Person %d (%s) arrives" % (t, f + 10, ("M" if temp.gender else "F")))
 				c += 1
 		elif t == 30:
 			print("\n 5 new arrivals \n")
 			for f in range(0,5):
-				line.append(Person(f + 15))
+				temp = Person(f + 15)
+				line.append(temp)
+				print("Time: %d; Person %d (%s) arrives" % (t, f + 15, ("M" if temp.gender else "F")))
 				c += 1
 
 		# sleep for readability
@@ -154,6 +163,7 @@ elif case.lower() == 'b':
 	# first 10 added
 	for f in range(0,10):
 		line.append(Person(f))
+		print("Time: %d; Person %d (%s) arrives" % (t, f, ("M" if line[f].gender else "F")))
 		c += 1
 
 	# central while loop, until count hits 20 and line empties
@@ -162,7 +172,9 @@ elif case.lower() == 'b':
 		if t == 10:
 			print("\n 10 new arrivals \n")
 			for f in range(0,10):
-				line.append(Person(f))
+				temp = Person(f + 10)
+				line.append(temp)
+				print("Time: %d; Person %d (%s) arrives" % (t, f + 10, ("M" if temp.gender else "F")))
 				c += 1
 
 		# sleep for readability
@@ -180,6 +192,7 @@ elif case.lower() == 'c':
 	# line generation
 	for f in range(0,20):
 		line.append(Person(f))
+		print("Time: %d; Person %d (%s) arrives" % (t, f, ("M" if line[f].gender else "F")))
 
 	# main while loop
 	while line:
