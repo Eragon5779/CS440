@@ -93,17 +93,71 @@ def bCheck():
 	elif len(bathroom) == 3:
 		return
 
-# line generation
-for f in range(0,20):
-	line.append(Person(f))
+case = input("Input case (a,b,c): ")
 
-# main while loop
-while line:
-	# sleep for readable output
-	sleep(0.1)
-	# leave/check
-	bLeave()
-	if len(bathroom) < 3:
-		bCheck()
-	# time increment
-	t += 1
+if case.lower() == 'a':
+	c = 0
+	for f in range(0,5):
+		line.append(Person(f))
+		c += 1
+
+	while c < 20 or line:
+		if t == 10:
+			print("\n 5 new arrivals \n")
+			for f in range(0,5):
+				line.append(Person(f + 5))
+				c += 1
+		elif t == 20:	
+			print("\n 5 new arrivals \n")
+			for f in range(0,5):
+				line.append(Person(f + 10))
+				c += 1
+		elif t == 30:
+			print("\n 5 new arrivals \n")
+			for f in range(0,5):
+				line.append(Person(f + 15))
+				c += 1
+
+		sleep(0.1)
+		bLeave()
+		if len(bathroom) < 3 and line:
+			bCheck()
+		t += 1
+
+elif case.lower() == 'b':
+	c = 0
+	for f in range(0,10):
+		line.append(Person(f))
+		c += 1
+
+	while c < 20 or line:
+		if t == 10:
+			print("\n 10 new arrivals \n")
+			for f in range(0,10):
+				line.append(Person(f))
+				c += 1
+
+		sleep(0.1)
+		bLeave()
+		if len(bathroom) < 3 and line:
+			bCheck()
+		t += 1
+
+elif case.lower() == 'c':
+	# line generation
+	for f in range(0,20):
+		line.append(Person(f))
+
+	# main while loop
+	while line:
+		# sleep for readable output
+		sleep(0.1)
+		# leave/check
+		bLeave()
+		if len(bathroom) < 3:
+			bCheck()
+		# time increment
+		t += 1
+
+else:
+	print("invalid input")
