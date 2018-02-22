@@ -25,7 +25,7 @@ bathroom = []
 
 # utility function to pop and get proper time
 def person_pop():
-	p = line.pop()
+	p = line.pop(0)
 	p.leave_time = t + p.in_time
 	return(p)
 def person_remove(d):
@@ -59,7 +59,7 @@ def UseFacilities():
 			# print(str(f.uid) + " leaves the bathroom.")
 			global dep
 			dep += 1
-			print("Time: %2.0f; Person %2.0f (%s) exits (departure = %2.0f)" % (t, f.uid, ("M" if f.gender else "F"), dep))
+			print("Time: %2.0f; Person %2.0f (%s) exits (departure = %2.0f)" % (t, f.uid + 1, ("M" if f.gender else "F"), dep))
 			Depart(f)
 			
 
@@ -78,7 +78,7 @@ def Arrive():
 			initial_check = line
 
 		#print("Person " + str(bathroom[0].uid) + " enters the bathroom for " + str(bathroom[0].in_time))
-		print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, bathroom[0].uid, ("M" if bathroom[0].gender else "F"), bathroom[0].in_time))
+		print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, bathroom[0].uid + 1, ("M" if bathroom[0].gender else "F"), bathroom[0].in_time))
 
 		# check the next 2 for compatible people
 		for f in initial_check:
@@ -86,7 +86,7 @@ def Arrive():
 			if f.gender == bathroom[0].gender:
 				# add them to bathroom
 				# print("Person " + str(f.uid) + " enters the bathroom for " + str(f.in_time))
-				print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, f.uid, ("M" if f.gender else "F"), f.in_time))
+				print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, f.uid + 1, ("M" if f.gender else "F"), f.in_time))
 				bathroom.append(person_remove(f))
 
 	# state B: 1 person in
@@ -101,7 +101,7 @@ def Arrive():
 			# else, find a compatible person and add
 			elif f.gender == bathroom[0].gender:
 				# print("Person " + str(f.uid) + " enters the bathroom for " + str(f.in_time))
-				print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, f.uid, ("M" if f.gender else "F"), f.in_time))
+				print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, f.uid + 1, ("M" if f.gender else "F"), f.in_time))
 				bathroom.append(person_remove(f))
 
 	# state C: 2 people in
@@ -125,7 +125,7 @@ if case.lower() == 'a':
 	# first 5 added
 	for f in range(0,5):
 		line.append(Person(f))
-		print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, f, ("M" if line[f].gender else "F")))
+		print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, f + 1, ("M" if line[f].gender else "F")))
 		c += 1
 
 	# central while loop, until count hits 20 and line empties
@@ -136,21 +136,21 @@ if case.lower() == 'a':
 			for f in range(0,5):
 				temp = Person(f + 5)
 				line.append(temp)
-				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid, ("M" if temp.gender else "F")))
+				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid + 1, ("M" if temp.gender else "F")))
 				c += 1
 		elif t == 20:	
 			print("\n 5 new arrivals \n")
 			for f in range(0,5):
 				temp = Person(f + 10)
 				line.append(temp)
-				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid, ("M" if temp.gender else "F")))
+				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid + 1, ("M" if temp.gender else "F")))
 				c += 1
 		elif t == 30:
 			print("\n 5 new arrivals \n")
 			for f in range(0,5):
 				temp = Person(f + 15)
 				line.append(temp)
-				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid, ("M" if temp.gender else "F")))
+				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid + 1, ("M" if temp.gender else "F")))
 				c += 1
 
 		# sleep for readability
@@ -170,7 +170,7 @@ elif case.lower() == 'b':
 	# first 10 added
 	for f in range(0,10):
 		line.append(Person(f))
-		print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, f, ("M" if line[f].gender else "F")))
+		print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, f + 1, ("M" if line[f].gender else "F")))
 		c += 1
 
 	# central while loop, until count hits 20 and line empties
@@ -181,7 +181,7 @@ elif case.lower() == 'b':
 			for f in range(0,10):
 				temp = Person(f + 10)
 				line.append(temp)
-				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid, ("M" if temp.gender else "F")))
+				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid + 1, ("M" if temp.gender else "F")))
 				c += 1
 
 		# sleep for readability
@@ -199,7 +199,7 @@ elif case.lower() == 'c':
 	# line generation
 	for f in range(0,20):
 		line.append(Person(f))
-		print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, f, ("M" if line[f].gender else "F")))
+		print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, f + 1, ("M" if line[f].gender else "F")))
 
 	# main while loop
 	while dep < 20 or line:
