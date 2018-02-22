@@ -67,53 +67,18 @@ def UseFacilities():
 def Arrive():
 	# find last three items on list, or less if it's too small
 
-	# state A: empty
 	if len(bathroom) == 0:
-		# initalize first person
 		bathroom.append(person_pop())
-		# get other 2 people to check
-		try:
-			initial_check = line[-2:]
-		except:
-			initial_check = line
-
-		#print("Person " + str(bathroom[0].uid) + " enters the bathroom for " + str(bathroom[0].in_time))
 		print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, bathroom[0].uid + 1, ("M" if bathroom[0].gender else "F"), bathroom[0].in_time))
 
-		# check the next 2 for compatible people
-		for f in initial_check:
-			# if gender matches
-			if f.gender == bathroom[0].gender:
-				# add them to bathroom
-				# print("Person " + str(f.uid) + " enters the bathroom for " + str(f.in_time))
-				print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, f.uid + 1, ("M" if f.gender else "F"), f.in_time))
-				bathroom.append(person_remove(f))
-
-	# state B: 1 person in
-	elif len(bathroom) == 1:
-		# for each in line
-		for f in line:
-			# if it's 2 big, check if next is addable to transition to State D
-			if len(bathroom) == 2 and line[-1].gender == bathroom[0].gender:
-				bathroom.append(person_pop())
-			elif len(bathroom) == 3:
-				return
-			# else, find a compatible person and add
-			elif f.gender == bathroom[0].gender:
-				# print("Person " + str(f.uid) + " enters the bathroom for " + str(f.in_time))
-				print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, f.uid + 1, ("M" if f.gender else "F"), f.in_time))
-				bathroom.append(person_remove(f))
-
-	# state C: 2 people in
-	elif len(bathroom) == 2:
-		if line[-1].gender == bathroom[0].gender:
+	count = 0
+	for f in line:
+		if f.gender == bathroom[0].gender and count < 3 and len(bathroom) < 3:
 			bathroom.append(person_pop())
+			print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, bathroom[count].uid + 1, ("M" if bathroom[count].gender else "F"), bathroom[count].in_time))
 		else:
 			return
-
-	# state D: 3 people in
-	elif len(bathroom) == 3:
-		return
+		count += 1
 
 # 3 required cases
 case = input("Input case (a,b,c): ")
