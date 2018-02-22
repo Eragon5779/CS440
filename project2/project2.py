@@ -4,7 +4,7 @@ from time import sleep
 # main time var
 t = 0
 # main depart var
-d = 0
+dep = 0
 
 class Person:
 	def __init__(self,uid):
@@ -57,9 +57,9 @@ def UseFacilities():
 		# check if current time is past/equal to their leave time
 		if f.leave_time - t <= 0:
 			# print(str(f.uid) + " leaves the bathroom.")
-			global d
-			d += 1
-			print("Time: %d; Person %d (%s) exits (departure = %d)" % (t, f.uid, ("M" if f.gender else "F"), d))
+			global dep
+			dep += 1
+			print("Time: %d; Person %d (%s) exits (departure = %d)" % (t, f.uid, ("M" if f.gender else "F"), dep))
 			Depart(f)
 			
 
@@ -129,7 +129,7 @@ if case.lower() == 'a':
 		c += 1
 
 	# central while loop, until count hits 20 and line empties
-	while c < 20 or line:
+	while dep < 20 or line:
 		# adds 5 more at times
 		if t == 10:
 			print("\n 5 new arrivals \n")
@@ -174,7 +174,7 @@ elif case.lower() == 'b':
 		c += 1
 
 	# central while loop, until count hits 20 and line empties
-	while c < 20 or line:
+	while dep < 20 or line:
 		# adds 10 more at times
 		if t == 10:
 			print("\n 10 new arrivals \n")
@@ -202,7 +202,7 @@ elif case.lower() == 'c':
 		print("Time: %d; Person %d (%s) arrives" % (t, f, ("M" if line[f].gender else "F")))
 
 	# main while loop
-	while line:
+	while dep < 20 or line:
 		# sleep for readability
 		sleep(0.1)
 		# remove from bathroom
@@ -216,3 +216,6 @@ elif case.lower() == 'c':
 # improper input
 else:
 	print("invalid input")
+
+for f in bathroom :
+	print(f.uid)
