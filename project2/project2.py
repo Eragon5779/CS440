@@ -208,7 +208,7 @@ elif case.lower() == 'c':
 		# remove from bathroom
 		UseFacilities()
 		# add to bathroom
-		if len(bathroom) < 3:
+		if len(bathroom) < 3 and line:
 			Arrive()
 		# increment time
 		t += 1
