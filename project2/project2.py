@@ -1,11 +1,13 @@
 from random import randint
-from time import sleep
 
-# main time var
+### state
+
+# time, departed count
 t = 0
-# main depart var
 dep = 0
-
+line = []
+bathroom = []
+# class
 class Person:
 	def __init__(self,uid):
 		# init'd to 0, will change later
@@ -19,15 +21,16 @@ class Person:
 		else:
 			self.gender = 0
 
-# empty line and bathroom variables
-line = []
-bathroom = []
+### functions
 
-# utility function to pop and get proper time
+## utility
+
+# pop next in line
 def person_pop():
 	p = line.pop(0)
 	p.leave_time = t + p.in_time
 	return(p)
+# pop specified person
 def person_remove(d):
 	# try catch in case of empty line, should never occur
 	try:
@@ -41,29 +44,9 @@ def person_remove(d):
 		print(line)
 		print("")
 
-# depart, usefacilities, and arrive
+## main
 
-# removes specified bathroom user
-def Depart(f):
-	bathroom.remove(f)
-
-# finds those who are done and removes
-def UseFacilities():
-	# if it's empty
-	if not bathroom:
-		return
-	# if it's not, iterate over every person in there
-	for f in bathroom:
-		# check if current time is past/equal to their leave time
-		if f.leave_time - t <= 0:
-			# print(str(f.uid) + " leaves the bathroom.")
-			global dep
-			dep += 1
-			print("Time: %2.0f; Person %2.0f (%s) exits (departure = %2.0f)" % (t, f.uid + 1, ("M" if f.gender else "F"), dep))
-			Depart(f)
-			
-
-# finds compatible people in line and puts them in bathroom
+# add to bathroom
 def Arrive():
 	# find last three items on list, or less if it's too small
 
@@ -80,6 +63,27 @@ def Arrive():
 			return
 		count += 1
 
+# finds those who are done and removes
+def UseFacilities():
+	# if it's empty
+	if not bathroom:
+		return
+	# if it's not, iterate over every person in there
+	for f in bathroom:
+		# check if current time is past/equal to their leave time
+		if f.leave_time - t <= 0:
+			# print(str(f.uid) + " leaves the bathroom.")
+			global dep
+			dep += 1
+			print("Time: %2.0f; Person %2.0f (%s) exits (departure = %2.0f)" % (t, f.uid + 1, ("M" if f.gender else "F"), dep))
+			Depart(f)
+
+# removes specified person from bathroom
+def Depart(f):
+	bathroom.remove(f)
+
+### main
+
 # 3 required cases
 case = input("Input case (a,b,c): ")
 
@@ -94,7 +98,7 @@ if case.lower() == 'a':
 		c += 1
 
 	# central while loop, until count hits 20 and line empties
-	while dep < 20 or line:
+	while dep < 20:
 		# adds 5 more at times
 		if t == 10:
 			print("\n 5 new arrivals \n")
@@ -118,8 +122,6 @@ if case.lower() == 'a':
 				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid + 1, ("M" if temp.gender else "F")))
 				c += 1
 
-		# sleep for readability
-		sleep(0.1)
 		# remove from bathroom
 		UseFacilities()
 		# add to bathroom
@@ -139,7 +141,7 @@ elif case.lower() == 'b':
 		c += 1
 
 	# central while loop, until count hits 20 and line empties
-	while dep < 20 or line:
+	while dep < 20:
 		# adds 10 more at times
 		if t == 10:
 			print("\n 10 new arrivals \n")
@@ -149,8 +151,6 @@ elif case.lower() == 'b':
 				print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, temp.uid + 1, ("M" if temp.gender else "F")))
 				c += 1
 
-		# sleep for readability
-		sleep(0.1)
 		# remove from bathroom
 		UseFacilities()
 		# add to bathroom
@@ -167,9 +167,7 @@ elif case.lower() == 'c':
 		print("Time: %2.0f; Person %2.0f (%s) arrives" % (t, f + 1, ("M" if line[f].gender else "F")))
 
 	# main while loop
-	while dep < 20 or line:
-		# sleep for readability
-		sleep(0.1)
+	while dep < 20:
 		# remove from bathroom
 		UseFacilities()
 		# add to bathroom
