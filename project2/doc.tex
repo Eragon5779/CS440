@@ -50,6 +50,25 @@ There are three data structures in the program:
 These three make up the majority of data manipulated in the program.
 There are other assorted state-based integers that help keep program logic clear and simple.
 
+%structure
+\noindent
+\textbf{Structure}
+
+The code is split into a few state-managing data structures, utility functions, and the core logic.
+
+The state management happens through four main variables and a \texttt{Person} struct.
+There's a time variable (\texttt{t}) to indicate when events should happen, a departed counter (\texttt{dep}) to ensure that the code ends when it needs to, and two lists for the \texttt{bathroom} and \texttt{line}.
+The person struct manages the things a person needs to know: their gender, the amount of time they spend in the bathroom, and the global time they must leave (calculated upon entering the bathroom).
+
+The utility functions manage moving the people back and forth, essentially. There's \texttt{Arrive}, \texttt{UseFacilities}, and \texttt{Depart}.
+They do what they sound like: \texttt{Arrive} adds the people to the bathroom, \texttt{UseFacilities} removes those who are done using the bathroom, and \texttt{Depart} is a utility function to help \texttt{UseFacilities} do its job.
+
+The core logic is very simple: add people to the line, use the facilities, add people to the bathroom, and increment the time by one.
+
+Combined together, each piece of this structure fulfills every requirement in this project.
+
+\newpage
+
 %psuedocode
 \noindent
 \textbf{Psuedocode}
