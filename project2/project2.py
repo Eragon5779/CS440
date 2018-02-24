@@ -43,6 +43,8 @@ def person_remove(d):
 		print(d.uid)
 		print(line)
 		print("")
+def print_person(uid,g,i):
+	print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, uid, ("M" if g else "F"), i))
 
 ## main
 
@@ -50,18 +52,32 @@ def person_remove(d):
 def Arrive():
 	# find last three items on list, or less if it's too small
 
-	if len(bathroom) == 0:
-		bathroom.append(person_pop())
-		print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, bathroom[0].uid + 1, ("M" if bathroom[0].gender else "F"), bathroom[0].in_time))
+	global line
+	global bathroom
+	add_bathroom = []
 
-	count = 0
+	if len(bathroom) == 0:
+		p = person_pop()
+		bathroom.append(p)
+		print_person(p.uid + 1, p.gender, p.in_time)
+	elif len(bathroom) == 2 and line[0].gender != bathroom[0].gender:
+		return
+
 	for f in line:
-		if f.gender == bathroom[0].gender and count < 3 and len(bathroom) < 3:
-			bathroom.append(person_pop())
-			print("Time: %2.0f; Person %2.0f (%s) enters the bathroom for %d minutes" % (t, bathroom[count].uid + 1, ("M" if bathroom[count].gender else "F"), bathroom[count].in_time))
-		else:
-			return
-		count += 1
+		index = line.index(f)
+		if f.gender == bathroom[0].gender and index < 2 and len(bathroom) < 2:
+			p = line[index]
+			p.leave_time = t + p.in_time
+			add_bathroom.append(line[index])
+			print_person(line[index].uid + 1, line[index].gender, line[index].in_time)
+		if f.gender == bathroom[0].gender and len(add_bathroom) < 1:
+			p = line[index]
+			p.leave_time = t + p.in_time
+			add_bathroom.append(line[index])
+			print_person(line[index].uid + 1, line[index].gender, line[index].in_time)
+
+	line = [f for f in line if f not in add_bathroom]
+	bathroom += add_bathroom
 
 # finds those who are done and removes
 def UseFacilities():
