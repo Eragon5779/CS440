@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 
+\usepackage[margin=1in]{geometry}
 \usepackage{setspace}
 \usepackage[activate={true,nocompatibility},
             final,
@@ -9,6 +10,8 @@
             factor=1100,
             stretch=10,
             shrink=10]{microtype}
+\usepackage{listings}
+\usepackage{xcolor}
 
 \microtypecontext{spacing=nonfrench}
 
@@ -17,14 +20,126 @@
 \setlength\parskip{1ex}
 \setlength\parindent{1em}
 
+\definecolor{grey}{HTML}{334466}
+
+\lstset{ basicstyle=\footnotesize \ttfamily,
+         breaklines=true,
+         numbers=left,
+         numberstyle=\ttfamily \color{grey},
+         language=Python,
+         commentstyle=\color{blue} }
+
 \begin{document}
 
+\noindent
 {\Large \textbf{Project 2 Documentation}}\\*
 Casey Burklow, Isaac Dudney
 
 %data structures
+\noindent
+\textbf{Data Structures}
+
+There are three data structures in the program:
+
+\begin{enumerate}
+\item \texttt{Person} - Class with four variables.
+\item \texttt{Line} - A list of Persons in the line for the bathroom.
+\item \texttt{Bathroom} - A list of Persons in the bathroom.
+\end{enumerate}
+
+These three make up the majority of data manipulated in the program.
+There are other assorted state-based integers that help keep program logic clear and simple.
 
 %psuedocode
+\noindent
+\textbf{Psuedocode}
+
+\begin{lstlisting}
+### state
+current_time = 0
+departed = 0
+line = []
+bathroom = []
+
+### classes
+Person(identifier):
+	leave_time = 0
+	in_time = random(3,7)
+	identifier = identifier
+	gender = random_weighted(60,0,1)
+
+### functions
+
+## utility
+person_pop():
+	set_leave_time(line.nextPerson)
+	return(line.nextPerson.pop())
+person_delete(index):
+	set_leave_time(line[index])
+	return(line.pop(index))
+
+## main
+# add to bathroom
+Arrive():
+	if bathroom is empty:
+		bathroom.append(person_pop())
+
+	for person in line:
+		if person.gender == bathroom[0].gender and bathroom is not full:
+			bathroom.append(person_pop())
+		else:
+			return
+# remove from bathroom
+UseFacilities():
+	if bathroom is empty:
+		return
+	for person in bathroom:
+		if person.leave_time == current_time
+			departed += 1
+			Depart(person)
+# utility to remove from bathroom
+Depart(Person):
+	bathroom.remove(Person)
+
+### main logic
+
+# a groups of 5, b groups of 10, c 20 at once
+input("Case a, b, c: ")
+
+case a:
+	if current_time = 0:
+		line.add(5,Person)
+	else if current_time = 10:
+		line.add(5,Person)
+	else if current_time = 20:
+		line.add(5,Person)
+	else if current_time = 30:
+		line.add(5,Person)
+
+	UseFacilities()
+	if bathroom is not full and line is not empty:
+		Arrive()
+	current_time += 1
+case b:
+	if current_time = 0:
+		line.add(10,Person)
+	else if current_time = 10:
+		line.add(10,Person)
+
+	UseFacilities()
+	if bathroom is not full and line is not empty:
+		Arrive()
+	current_time += 1
+case c:
+	if current_time = 0:
+		line.add(20,Person)
+
+	UseFacilities()
+	if bathroom is not full and line is not empty:
+		Arrive()
+	current_time += 1
+\end{lstlisting}
+
 
 %documentation
 
